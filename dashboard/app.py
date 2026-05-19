@@ -85,7 +85,7 @@ def get_explainer(_model, _X_sparse):
 
 try:
     # 1. Obtener explainer denso optimizado
-    explainer = get_explainer(model, X_test_transformed)
+    explainer = get_explainer(model, X_test)
     
     # 2. Asegurar que la instancia evaluada sea un array denso
     if hasattr(instancia_t, "toarray"):
