@@ -14,9 +14,8 @@ st.title("Bank Marketing — Model Evaluation Dashboard")
 
 @st.cache_resource
 def load_artifacts():
-    preprocessor = joblib.load('../models/preprocessor.pkl')
     model = joblib.load('../models/final_model.pkl')
-    return preprocessor, model
+    return  model
 
 @st.cache_data
 def load_data():
@@ -25,13 +24,12 @@ def load_data():
     y = test['y']
     return X, y
 
-preprocessor, model = load_artifacts()
+model = load_artifacts()
 X_test, y_test = load_data()
 
 # Transformación de datos de prueba
-X_test_transformed = preprocessor.transform(X_test)
-y_pred = model.predict(X_test_transformed)
-y_proba = model.predict_proba(X_test_transformed)[:, 1]
+y_pred = model.predict(X_test)
+y_proba = model.predict_proba(X_test)[:, 1]
 
 # KPIs
 st.subheader("Métricas generales")
@@ -64,7 +62,7 @@ with col_b:
 st.subheader("Simulador de predicción por instancia")
 idx = st.slider("Selecciona un cliente", 0, len(X_test)-1, 0)
 instancia = X_test.iloc[[idx]]
-instancia_t = preprocessor.transform(instancia)
+instancia_t = instancia.values
 pred = model.predict(instancia_t)[0]
 prob = model.predict_proba(instancia_t)[0][1]
 
@@ -105,11 +103,7 @@ try:
         shap_object = shap_values[0]
 
     # Asignar nombres de las columnas para que el gráfico sea legible
-    if hasattr(preprocessor, "get_feature_names_out"):
-        features = preprocessor.get_feature_names_out()
-    else:
-        features = X_test.columns.tolist()
-        
+    features = X_test.columns.tolist()
     shap_object.feature_names = features
 
     # 5. Dibujar e imprimir el gráfico de cascada
