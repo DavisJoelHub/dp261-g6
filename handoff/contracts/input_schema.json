@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "BankMarketingInputSchema",
+  "type": "object",
+  "properties": {
+    "age": {"type": "integer"},
+    "job": {"type": "string"},
+    "marital": {"type": "string"},
+    "education": {"type": "string"},
+    "default": {"type": "string"},
+    "housing": {"type": "string"},
+    "loan": {"type": "string"},
+    "contact": {"type": "string"},
+    "month": {"type": "string"},
+    "day_of_week": {"type": "string"},
+    "duration": {"type": "integer"},
+    "campaign": {"type": "integer"},
+    "pdays": {"type": "integer"},
+    "previous": {"type": "integer"},
+    "poutcome": {"type": "string"},
+    "emp.var.rate": {"type": "number"},
+    "cons.price.idx": {"type": "number"},
+    "cons.conf.idx": {"type": "number"},
+    "euribor3m": {"type": "number"},
+    "nr.employed": {"type": "number"}
+  },
+  "required": ["age", "job", "marital", "education", "duration", "campaign", "pdays", "previous", "euribor3m"]
+}
